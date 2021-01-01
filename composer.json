@@ -1,0 +1,12 @@
+{
+    "name": "arpanext/php-storage-jsons-sdk",
+    "authors": [
+        {
+            "name": "Arpanext",
+            "email": "contact@arpanext.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2"
+    }
+}
