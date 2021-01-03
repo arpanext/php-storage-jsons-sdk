@@ -2,6 +2,7 @@
 
 namespace Arpanext\Storage\Jsons;
 
+use Arpanext\Storage\Jsons\Databases\Collections;
 use Arpanext\Storage\Jsons\Databases\Commands;
 
 class Databases
@@ -9,6 +10,8 @@ class Databases
     private $client;
 
     private $database;
+
+    private $collections;
 
     private $commands;
 
@@ -19,6 +22,15 @@ class Databases
         $this->database = $database;
     }
 
+    public function collections($collection)
+    {
+        if (is_null($this->collections)) {
+            $this->setCollections($collection);
+        }
+
+        return $this->getCollections();
+    }
+
     public function commands()
     {
         if (is_null($this->commands)) {
@@ -26,26 +38,6 @@ class Databases
         }
 
         return $this->getCommands();
-    }
-
-    /**
-     * Get the value of database
-     */ 
-    public function getDatabase()
-    {
-        return $this->database;
-    }
-
-    /**
-     * Set the value of database
-     *
-     * @return  self
-     */ 
-    public function setDatabase($database)
-    {
-        $this->database = $database;
-
-        return $this;
     }
 
     /**
@@ -64,6 +56,26 @@ class Databases
     public function setCommands()
     {
         $this->commands = new Commands($this->client, $this->database);
+
+        return $this;
+    }
+
+    /**
+     * Get the value of collections
+     */ 
+    public function getCollections()
+    {
+        return $this->collections;
+    }
+
+    /**
+     * Set the value of collections
+     *
+     * @return  self
+     */ 
+    public function setCollections($collection)
+    {
+        $this->collections = new Collections($this->client, $this->database, $collection);
 
         return $this;
     }

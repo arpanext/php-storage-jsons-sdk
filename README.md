@@ -19,6 +19,8 @@ $client = (new Client([
 ]));
 
 $response = $client->databases('database')->commands()->execute('{"ping":1}')->request();
+
+$response = $client->databases('database')->collections('collection')->findOne('{"id":1,"name":"Leanne Graham","email":"Sincere@april.biz"}', '{"sort":{"_id":-1}}')->request();
 ```
 
 ## Testing
