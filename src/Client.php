@@ -14,12 +14,15 @@ class Client
 
     private $databases;
 
-    public function __construct()
+    public function __construct(array $options)
     {
-        $headers = [];
+        $headers = array_merge([
+            'Content-Type' => 'application/json',
+            //'Authorization' => 'Bearer <token>',
+        ], $options['headers'] ?? []);
 
         $this->guzzleHttpClient = new GuzzleHttpClient([
-            'base_uri' => 'http://127.0.0.1:8000/api/v1/storage/jsons/',
+            'base_uri' => $options['base_uri'],
             'timeout' => 5.0,
             'headers' => $headers,
             "http_errors" => false,
@@ -28,9 +31,18 @@ class Client
         return $this->guzzleHttpClient;
     }
 
+    public function databases(string $database)
+    {
+        if (is_null($this->databases)) {
+            $this->setDatabases($database);
+        }
+
+        return $this->getDatabases();
+    }
+
     /**
      * Get the value of databases
-     */ 
+     */
     public function getDatabases()
     {
         return $this->databases;
@@ -40,10 +52,10 @@ class Client
      * Set the value of databases
      *
      * @return  self
-     */ 
-    public function setDatabases()
+     */
+    public function setDatabases(string $database)
     {
-        $this->databases = new Databases($this->guzzleHttpClient);
+        $this->databases = new Databases($this->guzzleHttpClient, $database);
 
         return $this;
     }

@@ -19,6 +19,15 @@ class Commands
         $this->database = $database;
     }
 
+    public function execute(string $command)
+    {
+        if (is_null($this->execute)) {
+            $this->setExecute($command);
+        }
+
+        return $this->getExecute();
+    }
+
     /**
      * Get the value of execute
      */ 
@@ -32,9 +41,9 @@ class Commands
      *
      * @return  self
      */ 
-    public function setExecute()
+    public function setExecute(string $command)
     {
-        $this->execute = new Execute($this->client, $this->database);
+        $this->execute = new Execute($this->client, $this->database, $command);
 
         return $this;
     }

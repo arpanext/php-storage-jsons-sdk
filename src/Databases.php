@@ -12,9 +12,20 @@ class Databases
 
     private $commands;
 
-    public function __construct($client)
+    public function __construct($client, $database)
     {
         $this->client = $client;
+
+        $this->database = $database;
+    }
+
+    public function commands()
+    {
+        if (is_null($this->commands)) {
+            $this->setCommands();
+        }
+
+        return $this->getCommands();
     }
 
     /**

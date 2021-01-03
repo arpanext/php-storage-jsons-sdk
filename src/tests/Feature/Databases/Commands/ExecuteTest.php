@@ -14,7 +14,11 @@ class ExecuteTest extends TestCase
      */
     public function testExecute()
     {
-        $response = (new Client())->setDatabases()->getDatabases()->setDatabase('database')->setCommands()->getCommands()->setExecute()->getExecute()->request();
+        $client = (new Client([
+            'base_uri' => 'http://127.0.0.1:8000/api/v1/storage/jsons/',
+        ]));
+
+        $response = $client->databases('database')->commands()->execute('{"ping":1}')->request();
 
         $responseObjects = json_decode($response->getBody()->getContents());
 
