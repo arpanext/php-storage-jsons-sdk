@@ -15,7 +15,8 @@ class Execute
 
     public function request()
     {
-        return $this->guzzleHttpClient->request('POST', '/databases/database/commands/execute', [
+
+        return $this->client->request('POST', 'databases/database/commands/execute', [
             'body' => '{"ping":1}',
             'headers' => [
                 'Content-Type' => 'application/json',

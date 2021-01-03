@@ -52,7 +52,7 @@ class Databases
      */ 
     public function setCommands()
     {
-        $this->commands = new Commands($this->guzzleHttpClient, $this->database);
+        $this->commands = new Commands($this->client, $this->database);
 
         return $this;
     }

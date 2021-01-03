@@ -34,7 +34,7 @@ class Commands
      */ 
     public function setExecute()
     {
-        $this->execute = new Execute($this->guzzleHttpClient, $this->database);
+        $this->execute = new Execute($this->client, $this->database);
 
         return $this;
     }
